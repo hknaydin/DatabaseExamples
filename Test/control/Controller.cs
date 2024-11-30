@@ -28,6 +28,7 @@ namespace Test.control
         public void initializer()
         {
             db_connect = new SqlConnection("server=localhost;database=dukkan;integrated security=True");
+            this.mainForm.cmbTableNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
             // btnConnect'in Click olayına bir metod bağla
             this.mainForm.btnConnect.Click += BtnConnect_Click;
