@@ -31,9 +31,11 @@
             btnSecond = new Button();
             dateTimePicker = new DateTimePicker();
             groupBox = new GroupBox();
-            checkMale = new CheckBox();
             checkFemale = new CheckBox();
+            checkMale = new CheckBox();
+            dataGridViewSecondForm = new DataGridView();
             groupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewSecondForm).BeginInit();
             SuspendLayout();
             // 
             // btnSecond
@@ -54,6 +56,7 @@
             // 
             // groupBox
             // 
+            groupBox.Controls.Add(dataGridViewSecondForm);
             groupBox.Controls.Add(checkFemale);
             groupBox.Controls.Add(checkMale);
             groupBox.Location = new Point(12, 106);
@@ -62,6 +65,16 @@
             groupBox.TabIndex = 2;
             groupBox.TabStop = false;
             groupBox.Text = "Panel";
+            // 
+            // checkFemale
+            // 
+            checkFemale.AutoSize = true;
+            checkFemale.Location = new Point(6, 91);
+            checkFemale.Name = "checkFemale";
+            checkFemale.Size = new Size(116, 24);
+            checkFemale.TabIndex = 1;
+            checkFemale.Text = "checkFemale";
+            checkFemale.UseVisualStyleBackColor = true;
             // 
             // checkMale
             // 
@@ -73,15 +86,14 @@
             checkMale.Text = "checkMale";
             checkMale.UseVisualStyleBackColor = true;
             // 
-            // checkFemale
+            // dataGridViewSecondForm
             // 
-            checkFemale.AutoSize = true;
-            checkFemale.Location = new Point(6, 91);
-            checkFemale.Name = "checkFemale";
-            checkFemale.Size = new Size(116, 24);
-            checkFemale.TabIndex = 1;
-            checkFemale.Text = "checkFemale";
-            checkFemale.UseVisualStyleBackColor = true;
+            dataGridViewSecondForm.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewSecondForm.Location = new Point(268, 35);
+            dataGridViewSecondForm.Name = "dataGridViewSecondForm";
+            dataGridViewSecondForm.RowHeadersWidth = 51;
+            dataGridViewSecondForm.Size = new Size(475, 264);
+            dataGridViewSecondForm.TabIndex = 2;
             // 
             // SecondGUI
             // 
@@ -95,15 +107,17 @@
             Text = "SecondGUI";
             groupBox.ResumeLayout(false);
             groupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewSecondForm).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button btnSecond;
-        private DateTimePicker dateTimePicker;
-        private GroupBox groupBox;
-        private CheckBox checkMale;
-        private CheckBox checkFemale;
+        public Button btnSecond;
+        public DateTimePicker dateTimePicker;
+        public GroupBox groupBox;
+        public CheckBox checkMale;
+        public CheckBox checkFemale;
+        public DataGridView dataGridViewSecondForm;
     }
 }

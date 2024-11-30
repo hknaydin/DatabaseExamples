@@ -35,6 +35,7 @@
             cmbTableNames = new ComboBox();
             lblTables = new Label();
             btnDataFetch = new Button();
+            btnNewFormWindow = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewTables).BeginInit();
             SuspendLayout();
             // 
@@ -98,11 +99,21 @@
             btnDataFetch.Text = "Data Fetch";
             btnDataFetch.UseVisualStyleBackColor = true;
             // 
+            // btnNewFormWindow
+            // 
+            btnNewFormWindow.Location = new Point(799, 261);
+            btnNewFormWindow.Name = "btnNewFormWindow";
+            btnNewFormWindow.Size = new Size(293, 74);
+            btnNewFormWindow.TabIndex = 7;
+            btnNewFormWindow.Text = "New Form Open";
+            btnNewFormWindow.UseVisualStyleBackColor = true;
+            // 
             // MainGUI
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1137, 450);
+            Controls.Add(btnNewFormWindow);
             Controls.Add(btnDataFetch);
             Controls.Add(lblTables);
             Controls.Add(cmbTableNames);
@@ -111,7 +122,7 @@
             Controls.Add(btnDisconnect);
             Controls.Add(btnConnect);
             Name = "MainGUI";
-            Text = "Form1";
+            Text = "MainGUI";
             ((System.ComponentModel.ISupportInitialize)dataGridViewTables).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -126,5 +137,6 @@
         public ComboBox cmbTableNames;
         public Label lblTables;
         public Button btnDataFetch;
+        public Button btnNewFormWindow;
     }
 }

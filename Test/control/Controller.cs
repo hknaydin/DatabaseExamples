@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Test.model;
+using Test.view;
 
 
 namespace Test.control
@@ -17,7 +18,7 @@ namespace Test.control
         List<Kursiyer> kursiyerListesi;
         // Bağlantı nesnesi oluştur
         private SqlConnection db_connect;
-
+        DataTable dataTable;
         public Controller(MainGUI form1)
         {
             this.mainForm = form1;
@@ -34,6 +35,28 @@ namespace Test.control
             this.mainForm.btnConnect.Click += BtnConnect_Click;
             this.mainForm.btnDisconnect.Click += BtnDisconnect_click;
             this.mainForm.btnDataFetch.Click += BtnDataFetch_Click;
+            this.mainForm.btnNewFormWindow.Click += BtnOpenNewFormWindow_Click;
+        }
+
+        private void BtnOpenNewFormWindow_Click(object? sender, EventArgs e)
+        {
+            // Yeni bir SecondGUI formu oluştur
+            SecondGUI secondForm = new SecondGUI();
+
+
+                // İkinci formun dataGridViewSecondForm'una verileri bağla
+                secondForm.dataGridViewSecondForm.DataSource = dataTable;
+                secondForm.dataGridViewSecondForm.ReadOnly = true;
+
+                // İkinci formun btnSecond olayını bağla
+                secondForm.btnSecond.Click += (s, args) =>
+                {
+                    secondForm.Close(); // Formu kapat
+                };
+
+                // İkinci formu göster
+                secondForm.Show();
+       
         }
 
         private void BtnDataFetch_Click(object? sender, EventArgs e)
@@ -255,6 +278,8 @@ namespace Test.control
                 // DataGridView'e listeyi bağla
                 this.mainForm.dataGridViewTables.DataSource = dataList;
                 this.mainForm.dataGridViewTables.ReadOnly = true;
+
+                dataTable = ConvertListToDataTable(dataList);
             }
             catch (Exception ex)
             {
@@ -269,5 +294,60 @@ namespace Test.control
             }
         }
 
+        private DataTable ConvertListToDataTable(List<object> list)
+        {
+            DataTable table = new DataTable();
+
+            if (list == null || !list.Any())
+            {
+                MessageBox.Show("Liste boş, dönüştürme işlemi yapılamıyor!");
+                return table;
+            }
+
+            var firstObj = list.FirstOrDefault();
+            if (firstObj == null)
+            {
+                MessageBox.Show("Liste içerisinde geçerli bir veri bulunamadı!");
+                return table;
+            }
+
+            if (list.Select(o => o.GetType()).Distinct().Count() > 1)
+            {
+                MessageBox.Show("Liste içinde birden fazla türde nesne var. Dönüştürme yapılamıyor!");
+                return table;
+            }
+
+            try
+            {
+                foreach (var prop in firstObj.GetType().GetProperties())
+                {
+                    table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+                }
+
+                foreach (var obj in list)
+                {
+                    if (obj == null)
+                    {
+                        MessageBox.Show("Liste içinde boş bir nesne bulundu. İşlem durduruldu.");
+                        continue;
+                    }
+
+                    var row = table.NewRow();
+                    foreach (var prop in obj.GetType().GetProperties())
+                    {
+                        row[prop.Name] = prop.GetValue(obj) ?? DBNull.Value;
+                    }
+                    table.Rows.Add(row);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Dönüştürme sırasında bir hata oluştu: {ex.Message}");
+            }
+
+            return table;
+        }
+
     }
+
 }
